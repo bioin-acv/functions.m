@@ -1,0 +1,22 @@
+function expfit(x, y)
+    if length(x) ~= length(y)
+        error('x and y must be vectors of the same length.');
+    end
+
+    [fitresult, gof] = fit(x(:), y(:), 'exp1'); % 'exp1' models y = a * exp(b * x)
+    
+    coeffs = coeffvalues(fitresult);
+    a = coeffs(1)
+    b = coeffs(2)
+    
+
+    fprintf('Exponential fit equation: y = %.4f * exp(%.4f * x)\n', a, b);
+    fprintf('Goodness of fit (R-square): %.4f\n', gof.rsquare);
+
+    figure;
+    plot(fitresult, x, y);
+    xlabel('x');
+    ylabel('y');
+    title('Exponential Fit');
+    legend('Data', 'Exponential Fit');
+end
